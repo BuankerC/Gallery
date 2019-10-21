@@ -9,10 +9,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   {% bootstrap_css %}
+
 </head>
 
 <body>
-  <link rel="stylesheet" type="text/css" href="{% static 'aaa.png' %}">
+  <div class="text-center">
+    <a
+      href="https://search.naver.com/search.naver?sm=top_hty&fbm=0&ie=utf8&query=%EB%9F%AC%EB%B8%94%EB%A6%AC%EC%A6%88+%EC%A7%80%EC%88%98"><img
+        src="{% static 'jisoo.jpg' %}" alt=""></a>
+  </div>
   <ul class="nav justify-content-center">
     <li class="nav-item">
       <a class="nav-link active" href="{% url 'board:index' %}">홈</a>

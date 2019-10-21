@@ -1,38 +1,52 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block body %}
-{{board.title}}
-{{board.content}}
 
-{% if user == board.user %}
-<form action="{% url 'board:delete' board.id %}" method="post">
-  {% csrf_token %}
-  <input type="submit" value="삭제">
-</form>
-<a href="{% url 'board:update' board.id %}">수정</a>
-{% endif %}
+<h3 class="text-center">좋아요와 구독, 알람설정 부탁해요:)</h3>
+<div class="card bg-dark text-light">
+  <div class="card-body">
+    <h5 class="card-title">{{board.title}}</h5>
+    <p class="card-text">{{board.content}}</p>
+    {% if user == board.user %}
+    <div class="card-body">
+      <div class="row">
+        <form action="{% url 'board:delete' board.id %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="삭제" class="btn btn-danger mr-3">
+        </form>
+        <a href="{% url 'board:update' board.id %}" class="btn btn-primary">수정</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
 
 
 <hr>
-{% for comment in board.comment_set.all %}
-<p>
-  [{{comment.user}}] : {{comment.content}} {{comment.created_time}}
-  {% if user == comment.user %}
-  <form action="{% url 'board:comment_delete' board.id comment.id %}" method="post">
-    {% csrf_token %}
-    <input type="submit" value="삭제" class="btn btn-primary">
-  </form>
-  {% endif %}
-</p>
-{% endfor %}
-
-
+<h3 class="text-center">전체 댓글</h3>
+<div class="card bg-dark text-light">
+  <div class="card-body">
+    {% for comment in board.comment_set.all %}
+    <p>
+      <div class="row">
+        [{{comment.user}}] : {{comment.content}} [{{comment.created_time}}]
+        {% if user == comment.user %}
+        <form action="{% url 'board:comment_delete' board.id comment.id %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="삭제" class="btn btn-danger mx-3">
+        </form>
+      </div>
+      {% endif %}
+    </p>
+    {% endfor %}
+  </div>
+</div>
 {% if user.is_authenticated %}
 <hr>
 <form action="{% url 'board:comment_create' board.id %}" method='POST'>
   {% csrf_token %}
   {% bootstrap_form comment_form %}
-  <input type="submit" value="댓글 생성">
+  <input type="submit" value="댓글 생성" class="btn btn-success">
 </form>
 {% endif %}
 

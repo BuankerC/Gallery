@@ -3,6 +3,8 @@ from .models import Board, Comment
 
 
 class BoardForm(forms.ModelForm):
+    title = forms.CharField(label="오늘의 키워드")
+    content = forms.CharField(label="오늘의 넋두리")
 
     class Meta:
         model = Board
@@ -10,6 +12,7 @@ class BoardForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    content = forms.CharField(label="댓글")
 
     class Meta:
         model = Comment

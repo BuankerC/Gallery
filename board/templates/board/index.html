@@ -2,12 +2,11 @@
 {% load bootstrap4 %}
 {% block body %}
 {% for board in boards %}
-
-<div class="card">
-  <div class="card-body">
-    {{board.user}}
-    <a href="{% url 'board:detail' board.id %}">{{board.title}}</a>
-  </div>
+<div class="alert alert-info" role="alert">
+  너의 이름은 {{board.user}}
+  <br>
+  너의 마음은
+  <a href="{% url 'board:detail' board.id %}">{{board.title}}</a>
 </div>
 {% endfor %}
 {% endblock %}
