@@ -1,4 +1,5 @@
 {% load bootstrap4 %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +12,7 @@
 </head>
 
 <body>
+  <link rel="stylesheet" type="text/css" href="{% static 'aaa.png' %}">
   <ul class="nav justify-content-center">
     <li class="nav-item">
       <a class="nav-link active" href="{% url 'board:index' %}">홈</a>
@@ -23,7 +25,7 @@
       <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link">{{user.username}}님 안녕하세요!</a>
+      <h1 class="btn btn-info">{{user.username}}님 안녕하세요!</h1>
     </li>
 
     {% else %}
@@ -36,7 +38,7 @@
     {% endif %}
   </ul>
 
-  <div class="container">
+  <div class="container my-3">
     {% block body %}
 
     {% endblock %}
