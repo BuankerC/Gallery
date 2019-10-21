@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block body %}
+{{board.title}}
+{{board.content}}
+
+{% if user == board.user %}
+<form action="{% url 'board:delete' board.id %}" method="post">
+  {% csrf_token %}
+  <input type="submit" value="삭제">
+</form>
+<a href="{% url 'board:update' board.id %}">수정</a>
+{% endif %}
+
+
+<hr>
+{% for comment in board.comment_set.all %}
+<p>
+  [{{comment.user}}] : {{comment.content}} {{comment.created_time}}
+  {% if user == comment.user %}
+  <form action="{% url 'board:comment_delete' board.id comment.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="삭제" class="btn btn-primary">
+  </form>
+  {% endif %}
+</p>
+{% endfor %}
+
+
+{% if user.is_authenticated %}
+<hr>
+<form action="{% url 'board:comment_create' board.id %}" method='POST'>
+  {% csrf_token %}
+  {% bootstrap_form comment_form %}
+  <input type="submit" value="댓글 생성">
+</form>
+{% endif %}
+
+{% endblock %}

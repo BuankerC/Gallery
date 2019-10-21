@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>인덱스</h1>
+{% for board in boards %}
+<p>
+  {{board.user}}
+  <a href="{% url 'board:detail' board.id %}">{{board.title}}</a>
+</p>
+{% endfor %}
+{% endblock %}
